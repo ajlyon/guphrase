@@ -20,17 +20,17 @@ public class GuPhrase {
             integer = (integer.subtract(mod).divide(lexicon));
             System.out.println("v " + mod);
             stringBuilder.append(dictionary.wordForIndex(mod.longValue()));
-            stringBuilder.append(' ');
+            stringBuilder.append('-');
         } while (integer.getLowestSetBit() >= 0);
 
-        stringBuilder.deleteCharAt(stringBuilder.lastIndexOf(" "));
+        stringBuilder.deleteCharAt(stringBuilder.lastIndexOf("-"));
 
         return stringBuilder.toString();
     }
 
 
     public static UUID uuidForPhrase(String phrase, Dictionary dictionary) {
-        String[] pieces = phrase.split(" ");
+        String[] pieces = phrase.split("-");
 
         BigInteger integer = BigInteger.ZERO;
         BigInteger lexicon = BigInteger.valueOf(dictionary.size());

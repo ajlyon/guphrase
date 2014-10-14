@@ -38,8 +38,10 @@ public class GuPhraseTest {
 
     @Test
     public void testMaxiDict() throws Exception {
+        UUID uuid = UUID.randomUUID();
         Dictionary dictionary = new WordListResourceDictionary("/354984si.ngl");
-        String output = GuPhrase.phraseForUUID(UUID.randomUUID(), dictionary);
+        String output = GuPhrase.phraseForUUID(uuid, dictionary);
+        System.out.println(uuid.toString());
         System.out.println(output);
         System.out.println(output.length());
 
