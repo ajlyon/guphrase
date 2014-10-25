@@ -7,7 +7,7 @@ public class ListDictionary implements Dictionary {
     private final List<String> words;
 
     public ListDictionary(List<String> words) {
-        this.words = new ArrayList<String>(words);
+        this.words = new ArrayList<>(words);
     }
 
     @Override

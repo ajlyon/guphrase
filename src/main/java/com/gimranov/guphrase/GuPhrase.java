@@ -4,28 +4,54 @@ import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class GuPhrase {
     public static String phraseForUUID(UUID uuid, Dictionary dictionary) {
+        return String.join("-", piecesForUUID(uuid, dictionary));
+    }
+
+    public static String pseudoWordForUUID(UUID uuid, Dictionary dictionary) {
+        return joinWithVowels(piecesForUUID(uuid, dictionary), "aeiouy");
+    }
+
+    private static String joinWithVowels(List<String> pieces, String vowels) {
+        StringBuilder stringBuilder = new StringBuilder();
+        String previous = null;
+
+        for (String current : pieces) {
+            if (previous != null) {
+                if (vowels.lastIndexOf(previous.charAt(previous.length() - 1)) == -1
+                        && vowels.lastIndexOf(current.charAt(0)) == -1) {
+                    stringBuilder.append(vowels.charAt(current.charAt(0) % vowels.length()));
+                }
+            }
+
+            stringBuilder.append(current);
+            previous = current;
+
+        }
+
+        return stringBuilder.toString();
+
+    }
+
+    private static List<String> piecesForUUID(UUID uuid, Dictionary dictionary) {
         BigInteger integer = new BigInteger(uuid.toString().replace("-", ""), 16);
 
         BigInteger lexicon = BigInteger.valueOf(dictionary.size());
 
-        StringBuilder stringBuilder = new StringBuilder();
+        List<String> result = new ArrayList<>();
 
         do {
-//            System.out.println("i " + integer);
             BigInteger mod = integer.mod(lexicon);
             integer = (integer.subtract(mod).divide(lexicon));
-            System.out.println("v " + mod);
-            stringBuilder.append(dictionary.wordForIndex(mod.longValue()));
-            stringBuilder.append('-');
+            result.add(dictionary.wordForIndex(mod.longValue()));
         } while (integer.getLowestSetBit() >= 0);
 
-        stringBuilder.deleteCharAt(stringBuilder.lastIndexOf("-"));
-
-        return stringBuilder.toString();
+        return result;
     }
 
 
@@ -39,9 +65,6 @@ public class GuPhrase {
 
         for (String piece : pieces) {
             long value = dictionary.indexForWord(piece);
-//            System.out.println("i " + integer);
-//            System.out.println("p " + power);
-            System.out.println("v " + value);
             integer = integer.add(BigInteger.valueOf(value).multiply(lexicon.pow(power)));
             power++;
         }

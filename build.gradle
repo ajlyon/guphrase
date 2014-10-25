@@ -9,5 +9,6 @@ repositories {
 
 dependencies {
     compile 'commons-io:commons-io:2.4'
-    testCompile group: 'org.testng', name: 'testng', version: '6.8.8'
+    testCompile 'junit:junit:4.11'
+
 }

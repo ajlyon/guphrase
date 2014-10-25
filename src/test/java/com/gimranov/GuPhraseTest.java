@@ -4,12 +4,13 @@ import com.gimranov.guphrase.Dictionary;
 import com.gimranov.guphrase.GuPhrase;
 import com.gimranov.guphrase.ListDictionary;
 import com.gimranov.guphrase.WordListResourceDictionary;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.UUID;
 
-import static org.testng.AssertJUnit.assertEquals;
+import static org.junit.Assert.assertEquals;
+
 
 public class GuPhraseTest {
     @Test
@@ -44,7 +45,48 @@ public class GuPhraseTest {
         System.out.println(uuid.toString());
         System.out.println(output);
         System.out.println(output.length());
+        assertEquals(output, GuPhrase.phraseForUUID(uuid, dictionary));
 
+    }
+
+    @Test
+    public void testMorphemes() throws Exception {
+        UUID uuid = UUID.randomUUID();
+        Dictionary dictionary = new WordListResourceDictionary("/cogna-sorted.morphemes");
+        String output = GuPhrase.phraseForUUID(uuid, dictionary);
+        System.out.println(uuid.toString());
+        System.out.println(output);
+        System.out.println(output.length());
+    }
+
+    @Test
+    public void testMorphemesAsWord() throws Exception {
+        UUID uuid = UUID.randomUUID();
+        Dictionary dictionary = new WordListResourceDictionary("/cogna-sorted.morphemes");
+        String output = GuPhrase.pseudoWordForUUID(uuid, dictionary);
+        System.out.println(uuid.toString());
+        System.out.println(output);
+        System.out.println(output.length());
+    }
+
+    @Test
+    public void testMorphemesAsWordUsingCombinedList() throws Exception {
+        UUID uuid = UUID.randomUUID();
+        Dictionary dictionary = new WordListResourceDictionary("/combined.morphemes");
+        String output = GuPhrase.pseudoWordForUUID(uuid, dictionary);
+        System.out.println(uuid.toString());
+        System.out.println(output);
+        System.out.println(output.length());
+    }
+
+    @Test
+    public void testMorphemesAsWordUsingMyList() throws Exception {
+        UUID uuid = UUID.randomUUID();
+        Dictionary dictionary = new WordListResourceDictionary("/grecoroman.morphemes");
+        String output = GuPhrase.pseudoWordForUUID(uuid, dictionary);
+        System.out.println(uuid.toString());
+        System.out.println(output);
+        System.out.println(output.length());
     }
 
     @Test
