@@ -1,6 +1,6 @@
 guphrase
 ========
-[![Build Status](https://travis-ci.org/ajlyon/guphrase.svg?branch=master)](https://travis-ci.org/ajlyon/guphrase)
+[![Build Status](https://travis-ci.org/avram/guphrase.svg?branch=master)](https://travis-ci.org/avram/guphrase)
 
 Toy utility to represent UUIDs as phrases from an agreed-upon dictionary.
 
